@@ -9,7 +9,8 @@ $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $p
 
 $country = $_GET['country'] ?? "";
 //$lookup = $_GET[]
-$stmt = $conn->prepare("SELECT * FROM countries WHERE name LIKE :country");
+//$stmt = $conn->prepare("SELECT * FROM countries WHERE name LIKE :country");
+$stmt = $conn->prepare("SELECT name, continent, independence_year, head_of_state FROM countries WHERE name LIKE :country");
 $stmt->execute([":country" => "%$country%"]);
 
 
@@ -17,8 +18,21 @@ $stmt->execute([":country" => "%$country%"]);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-<ul>
-<?php foreach ($results as $row): ?>
-  <li><?= $row['name'] . ' is ruled by ' . $row['head_of_state']; ?></li>
-<?php endforeach; ?>
-</ul>
+
+<table>
+  <tr>
+    <th> Name </th>
+    <th> Continent </th>
+    <th> Independence </th>
+    <th> Head of State </th>
+  </tr>
+
+  <?php foreach ($results as $row): ?>
+    <tr>
+      <td><?= $row['name']; ?> </td>
+      <td><?= $row['continent']; ?></td>
+      <td><?=$row['independence_year']; ?></td>
+      <td><?=$row['head_of_state']; ?></td>
+    </tr>
+  <?php endforeach; ?>
+</table>
