@@ -1,2 +1,2 @@
-# info2180-lab5
-Demaria's Lab 5 for INFO2180
+# INFO2180 Lab 5
+This is Lab 5 for Demaria Walker on PHP and MySQL
